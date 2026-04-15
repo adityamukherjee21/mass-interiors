@@ -1,0 +1,110 @@
+{
+  "theme": "dark",
+  "archetype": "5 (Jewel & Luxury) & 4 (Swiss & High-Contrast)",
+  "design_language": "Cinematic Industrial Luxury",
+  "colors": {
+    "background": {
+      "default": "#080808",
+      "surface": "#111111",
+      "surface_elevated": "#1C1C1C",
+      "surface_highlight": "#2A2A2A"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#F2F0EC",
+      "muted": "#888888",
+      "tertiary": "#5A5A5A"
+    },
+    "border": {
+      "default": "#2A2A2A",
+      "subtle": "#1C1C1C",
+      "highlight": "#5A5A5A"
+    },
+    "accent": {
+      "primary": "#F5C800",
+      "secondary": "#C8102E"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "display": "Bebas Neue",
+      "body": "DM Sans",
+      "mono": "JetBrains Mono"
+    },
+    "scales": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[0.9]",
+      "h2": "text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-none",
+      "h3": "text-2xl sm:text-3xl tracking-tight leading-snug",
+      "h4": "text-xl sm:text-2xl tracking-tight leading-snug",
+      "body": "text-base lg:text-lg leading-relaxed",
+      "mono_label": "text-xs sm:text-sm font-mono tracking-[0.2em] uppercase"
+    },
+    "instructions": "Use Bebas Neue ONLY for Headings. DO NOT use it for body text. JetBrains Mono is strictly for technical specifications, metric numbers, overlines, and technical labels. DM Sans for paragraphs and interactive elements."
+  },
+  "layout_and_spacing": {
+    "base": "8px",
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-24 sm:py-32 lg:py-40",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-12 gap-6",
+    "card_padding": "p-8 sm:p-12",
+    "instructions": "Extremely generous vertical padding between sections. The UI should feel sparse, monumental, and architecturally sound. Containers with borders must have internal padding (p-6 or p-8). Apply the Tetris bento rules for grid structures (mix col-span-4, col-span-8 to create asymmetry)."
+  },
+  "surface_strategies": {
+    "cards": "Dark #111111 backgrounds with sharp rounded-none radius, 1px #2A2A2A border. No soft shadows. Rely on 1px solid strokes for definition.",
+    "hover_states": "Group hover on cards should lift slightly (-translate-y-1) and illuminate the border (border-[#5A5A5A] or border-[#F5C800]) to simulate a metallic edge catching light. ALWAYS explicitly set text color on hover.",
+    "buttons": "Primary CTA: solid #FFFFFF background with #080808 text. Hover: bg-[#F5C800] text-#080808. Sharp corners (rounded-none). Use mono font for button text. Secondary: border border-[#2A2A2A] text-white hover:border-[#F5C800]."
+  },
+  "motion_and_interaction": {
+    "libraries_required": ["lenis", "framer-motion", "lucide-react"],
+    "scroll": "Lenis smooth scroll must be initialized to give the site weight and momentum.",
+    "reveal": "Headings (Bebas Neue) should have line-by-line staggered reveals using Framer Motion.",
+    "hover": "Image containers must have overflow-hidden. Images apply scale-105 on hover.",
+    "counters": "Trust Metrics must use an animated counter (counting up from 0 to value) when scrolled into view using framer-motion."
+  },
+  "components": {
+    "hero": "Dark cinematic layout. Massive Bebas Neue typography overlapping the hero image. A subtle technical grid overlay or parallax 3D abstraction in the background.",
+    "trust_metrics": "A horizontal bar or grid-cols-4 displaying massive numbers (JetBrains Mono) and small uppercase labels. Dense, technical feel.",
+    "solutions_grid": "Bento grid of product categories. Each cell has a dark background, a background image with a heavy black/60 overlay, and bright white text.",
+    "tech_specs": "Table or complex bento grid showcasing numbers (STC 45-65, fire ratings). Technical aesthetic. Monospace fonts heavily used here.",
+    "portfolio": "Large asymmetrical imagery of flagship 6 projects. Images take up to 80vh height limits on mobile.",
+    "architect_resources": "Download section with file format icons (CAD, BIM, PDF). Sharp borders, strictly utilitarian and technical.",
+    "lead_gen_form": "Minimalist input fields. Use Shadcn UI (Form, Input, Select, Textarea) but strictly customized: rounded-none, border-[#2A2A2A], bg-transparent.",
+    "footer": "Enterprise footer. Massive MASS INTERIORS wordmark at the bottom. Symmetrical column layout for links."
+  },
+  "image_urls": {
+    "hero_bg": {
+      "url": "https://images.unsplash.com/photo-1773168754421-206a58d35bec",
+      "description": "Single light illuminating a dark concrete room corner, sets a dramatic cinematic industrial tone."
+    },
+    "solutions": [
+      {
+        "url": "https://images.unsplash.com/photo-1764083292858-1576bce9e678",
+        "description": "Dark textured wall, useful for acoustic/fire-rated panels"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1765902513371-dc3cf6b2df1d",
+        "description": "Glass blocks illuminated, useful for wet area boards or external cladding"
+      }
+    ],
+    "portfolio": {
+      "corporate_office": "https://images.unsplash.com/photo-1774192620890-f61475279725",
+      "luxury_hotel": "https://images.unsplash.com/photo-1758193017781-e3aee6c3e359",
+      "airport_ceiling": "https://images.unsplash.com/photo-1762801156780-dec274643407",
+      "hospital_ot": "https://images.unsplash.com/photo-1600247566934-6f8ad5ee691a",
+      "villa_exterior": "https://images.unsplash.com/photo-1774953037913-af0cf688491a",
+      "prefab_resort": "https://images.unsplash.com/photo-1766075012339-771997265720"
+    }
+  },
+  "testing": {
+    "instructions": "All interactive and key informational elements MUST include a data-testid attribute formatted as kebab-case, role-based. Example: data-testid='hero-cta-button'."
+  },
+  "instructions_to_main_agent": [
+    "All components and files must be written in .js/.jsx, NOT .tsx (No TypeScript).",
+    "Use pure HTML/Tailwind for structural marketing sections (Hero, Grid, Portfolio) to allow extreme custom layouts and overlaps.",
+    "Use Shadcn UI ONLY for the Lead Gen Form (inputs, selects, form validation), but strip the Vercel look—make it dark, sharp (rounded-none), and industrial.",
+    "Do NOT use 'Inter' font anywhere. Install and use @fontsource or google fonts for Bebas Neue, DM Sans, and JetBrains Mono.",
+    "Ensure all text over images has sufficient contrast by applying bg-black/60 overlays or gradient overlays.",
+    "Build a custom 'TrustMetrics' component that uses framer-motion useInView and animate to count up numbers (e.g., 50, 120, 6).",
+    "Ensure the hero image has max overlay opacity of bg-black/50, and use gradients to provide contrast for text."
+  ]
+}
