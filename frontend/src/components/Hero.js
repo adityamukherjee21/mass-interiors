@@ -46,8 +46,10 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
             data-testid="hero-title"
           >
-            ENGINEERED<br/>
-            INTERIORS.<br/>
+            ENGINEERED
+            <br />
+            INTERIORS.
+            <br />
             <span className="text-yellow">BUILT TO LAST.</span>
           </motion.h1>
 
