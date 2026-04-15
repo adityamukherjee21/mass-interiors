@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const solutionsData = [
   {
-    id: 'fire-rated',
+    id: 'fire-rated-partitions',
     title: 'FIRE-RATED PARTITIONS',
     tag: 'FIRE PROTECTION',
     desc: 'Up to 3-hour fire-rated wall systems for hospitals, data centers, and high-rise buildings. Tested to IS 3809 standards.',
@@ -15,7 +16,7 @@ const solutionsData = [
     size: 'large',
   },
   {
-    id: 'acoustic',
+    id: 'acoustic-systems',
     title: 'ACOUSTIC SYSTEMS',
     tag: 'SOUND CONTROL',
     desc: 'STC 45-65 rated acoustic partitions for recording studios, conference rooms, and healthcare facilities.',
@@ -27,7 +28,7 @@ const solutionsData = [
     size: 'medium',
   },
   {
-    id: 'ceiling',
+    id: 'false-ceilings',
     title: 'FALSE CEILINGS',
     tag: 'OVERHEAD SYSTEMS',
     desc: 'T-grid and concealed systems for commercial spaces, airports, and premium interiors.',
@@ -39,7 +40,7 @@ const solutionsData = [
     size: 'medium',
   },
   {
-    id: 'wet-area',
+    id: 'wet-area-boards',
     title: 'WET AREA BOARDS',
     tag: 'MOISTURE RESISTANT',
     desc: 'Water-resistant cement boards for bathrooms, kitchens, and swimming pool areas.',
@@ -51,7 +52,7 @@ const solutionsData = [
     size: 'small',
   },
   {
-    id: 'cladding',
+    id: 'external-cladding',
     title: 'EXTERNAL CLADDING',
     tag: 'FACADE SYSTEMS',
     desc: 'Weather-resistant exterior cladding with architectural finishes for modern facades.',
@@ -63,7 +64,7 @@ const solutionsData = [
     size: 'small',
   },
   {
-    id: 'mezzanine',
+    id: 'mezzanine-flooring',
     title: 'MEZZANINE FLOORING',
     tag: 'STRUCTURAL',
     desc: 'High-density cement boards for raised floors and mezzanine construction.',
@@ -75,7 +76,7 @@ const solutionsData = [
     size: 'small',
   },
   {
-    id: 'prefab',
+    id: 'prefab-lgsf',
     title: 'PREFAB STRUCTURES',
     tag: 'LGSF SYSTEMS',
     desc: 'Lightweight steel frame construction with VBOARD cladding for rapid deployment.',
@@ -141,6 +142,7 @@ export const Solutions = () => {
               }}
               data-testid={`solution-card-${solution.id}`}
             >
+              <Link to={`/solutions/${solution.id}`} className="absolute inset-0 z-10" />
               <div className="solution-image">
                 <img src={solution.image} alt={solution.title} loading="lazy" />
               </div>

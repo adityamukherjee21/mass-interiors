@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,11 +18,11 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { label: 'Solutions', href: '#solutions' },
-    { label: 'Specifications', href: '#specs' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Resources', href: '#resources' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About', href: '/about', isPage: true },
+    { label: 'Solutions', href: isHomePage ? '#solutions' : '/#solutions', isPage: false },
+    { label: 'Compare', href: '/compare', isPage: true },
+    { label: 'Portfolio', href: isHomePage ? '#portfolio' : '/#portfolio', isPage: false },
+    { label: 'Contact', href: isHomePage ? '#contact' : '/#contact', isPage: false },
   ];
 
   return (
@@ -34,7 +37,7 @@ export const Navbar = () => {
         <div className="container-premium">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-3" data-testid="nav-logo">
+            <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
               <span className="font-display text-2xl tracking-tight text-white">
                 MASS INTERIORS
               </span>
@@ -42,28 +45,39 @@ export const Navbar = () => {
               <span className="hidden sm:block mono-label text-mid">
                 DRY CONSTRUCTION SYSTEMS
               </span>
-            </a>
+            </Link>
 
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a 
-                  key={link.label}
-                  href={link.href}
-                  className="nav-link"
-                  data-testid={`nav-link-${link.label.toLowerCase()}`}
-                >
-                  {link.label}
-                </a>
+                link.isPage ? (
+                  <Link 
+                    key={link.label}
+                    to={link.href}
+                    className="nav-link"
+                    data-testid={`nav-link-${link.label.toLowerCase()}`}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a 
+                    key={link.label}
+                    href={link.href}
+                    className="nav-link"
+                    data-testid={`nav-link-${link.label.toLowerCase()}`}
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
-              <a 
-                href="#contact" 
+              <Link 
+                to={isHomePage ? '#contact' : '/#contact'}
                 className="btn-primary ml-4"
                 data-testid="nav-cta"
               >
                 Get Quote
                 <ArrowUpRight size={14} />
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Toggle */}
@@ -93,24 +107,49 @@ export const Navbar = () => {
         <div className="container-premium pt-24 pb-8 flex flex-col h-full">
           <div className="flex flex-col gap-6">
             {navLinks.map((link, i) => (
-              <motion.a 
-                key={link.label}
-                href={link.href}
-                className="font-display text-4xl text-white"
-                onClick={() => setMobileOpen(false)}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ 
-                  opacity: mobileOpen ? 1 : 0,
-                  x: mobileOpen ? 0 : 20
-                }}
-                transition={{ 
-                  duration: 0.4, 
-                  delay: mobileOpen ? i * 0.1 : 0,
-                  ease: [0.76, 0, 0.24, 1]
-                }}
-              >
-                {link.label}
-              </motion.a>
+              link.isPage ? (
+                <motion.div key={link.label}>
+                  <Link 
+                    to={link.href}
+                    className="font-display text-4xl text-white block"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <motion.span
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ 
+                        opacity: mobileOpen ? 1 : 0,
+                        x: mobileOpen ? 0 : 20
+                      }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: mobileOpen ? i * 0.1 : 0,
+                        ease: [0.76, 0, 0.24, 1]
+                      }}
+                    >
+                      {link.label}
+                    </motion.span>
+                  </Link>
+                </motion.div>
+              ) : (
+                <motion.a 
+                  key={link.label}
+                  href={link.href}
+                  className="font-display text-4xl text-white"
+                  onClick={() => setMobileOpen(false)}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ 
+                    opacity: mobileOpen ? 1 : 0,
+                    x: mobileOpen ? 0 : 20
+                  }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: mobileOpen ? i * 0.1 : 0,
+                    ease: [0.76, 0, 0.24, 1]
+                  }}
+                >
+                  {link.label}
+                </motion.a>
+              )
             ))}
           </div>
           <div className="mt-auto pt-8 border-t border-steel">

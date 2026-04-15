@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { MapPin, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const portfolioData = [
   {
-    id: 1,
+    id: 'corporate-office-acoustic',
     title: 'CORPORATE OFFICE ACOUSTIC PARTITIONS',
     location: 'Mumbai, Maharashtra',
     tag: 'ACOUSTIC SYSTEMS',
@@ -14,7 +15,7 @@ const portfolioData = [
     size: 'large',
   },
   {
-    id: 2,
+    id: 'luxury-hotel-wet-area',
     title: 'LUXURY HOTEL WET AREA SYSTEMS',
     location: 'Goa, India',
     tag: 'WET AREA BOARDS',
@@ -25,7 +26,7 @@ const portfolioData = [
     size: 'small',
   },
   {
-    id: 3,
+    id: 'hospital-fire-rated',
     title: 'HOSPITAL FIRE-RATED OT PARTITIONS',
     location: 'Delhi NCR',
     tag: 'FIRE PROTECTION',
@@ -36,7 +37,7 @@ const portfolioData = [
     size: 'small',
   },
   {
-    id: 4,
+    id: 'villa-exterior-cladding',
     title: 'VILLA EXTERIOR CEMENT BOARD CLADDING',
     location: 'Bengaluru, Karnataka',
     tag: 'FACADE SYSTEMS',
@@ -47,7 +48,7 @@ const portfolioData = [
     size: 'large',
   },
   {
-    id: 5,
+    id: 'airport-ceiling-corridor',
     title: 'AIRPORT FALSE CEILING & CORRIDOR SYSTEMS',
     location: 'Hyderabad, Telangana',
     tag: 'OVERHEAD SYSTEMS',
@@ -58,7 +59,7 @@ const portfolioData = [
     size: 'small',
   },
   {
-    id: 6,
+    id: 'prefab-resort-lgsf',
     title: 'PREFAB RESORT LGSF STRUCTURE',
     location: 'Shimla, Himachal Pradesh',
     tag: 'LGSF SYSTEMS',
@@ -111,6 +112,7 @@ export const Portfolio = () => {
               }}
               data-testid={`portfolio-card-${project.id}`}
             >
+              <Link to={`/projects/${project.id}`} className="absolute inset-0 z-10" />
               <div className="portfolio-image">
                 <img src={project.image} alt={project.title} loading="lazy" />
               </div>

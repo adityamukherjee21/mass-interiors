@@ -1,23 +1,24 @@
 import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Linkedin, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const solutions = [
-    { label: 'Fire-Rated Partitions', href: '#solutions' },
-    { label: 'Acoustic Systems', href: '#solutions' },
-    { label: 'False Ceilings', href: '#solutions' },
-    { label: 'Wet Area Boards', href: '#solutions' },
-    { label: 'External Cladding', href: '#solutions' },
-    { label: 'LGSF Systems', href: '#solutions' },
+    { label: 'Fire-Rated Partitions', href: '/solutions/fire-rated-partitions' },
+    { label: 'Acoustic Systems', href: '/solutions/acoustic-systems' },
+    { label: 'False Ceilings', href: '/solutions/false-ceilings' },
+    { label: 'Wet Area Boards', href: '/solutions/wet-area-boards' },
+    { label: 'External Cladding', href: '/solutions/external-cladding' },
+    { label: 'LGSF Systems', href: '/solutions/prefab-lgsf' },
   ];
 
-  const resources = [
-    { label: 'CAD Downloads', href: '#resources' },
-    { label: 'BIM Objects', href: '#resources' },
-    { label: 'Technical Data', href: '#resources' },
-    { label: 'Installation Guides', href: '#resources' },
+  const company = [
+    { label: 'About Us', href: '/about' },
+    { label: 'Compare Products', href: '/compare' },
+    { label: 'Portfolio', href: '/#portfolio' },
+    { label: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -70,26 +71,26 @@ export const Footer = () => {
               <h4 className="footer-col-title">Solutions</h4>
               <div className="footer-links">
                 {solutions.map((link) => (
-                  <a key={link.label} href={link.href} className="footer-link">
+                  <Link key={link.label} to={link.href} className="footer-link">
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </motion.div>
 
-            {/* Resources Column */}
+            {/* Company Column */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h4 className="footer-col-title">Resources</h4>
+              <h4 className="footer-col-title">Company</h4>
               <div className="footer-links">
-                {resources.map((link) => (
-                  <a key={link.label} href={link.href} className="footer-link">
+                {company.map((link) => (
+                  <Link key={link.label} to={link.href} className="footer-link">
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </motion.div>

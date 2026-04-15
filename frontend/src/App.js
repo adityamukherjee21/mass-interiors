@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { AnimatePresence } from 'framer-motion';
 import '@/App.css';
@@ -16,10 +17,55 @@ import Resources from './components/Resources';
 import LeadForm from './components/LeadForm';
 import Footer from './components/Footer';
 
-function App() {
+// Pages
+import AboutPage from './pages/AboutPage';
+import SolutionDetailPage from './pages/SolutionDetailPage';
+import ProjectDetailPage from './pages/ProjectDetailPage';
+import ComparePage from './pages/ComparePage';
+
+// Scroll to top on route change
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      // If there's a hash, scroll to that element
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // Otherwise scroll to top
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
+
+  return null;
+};
+
+// Homepage component
+const HomePage = () => {
+  return (
+    <>
+      <Hero />
+      <TrustMetrics />
+      <Solutions />
+      <TechSpecs />
+      <Portfolio />
+      <Resources />
+      <LeadForm />
+    </>
+  );
+};
+
+// Main App Layout
+const AppLayout = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const lenisRef = useRef(null);
+  const location = useLocation();
 
   // Initialize Lenis smooth scroll
   useEffect(() => {
@@ -45,13 +91,22 @@ function App() {
     };
   }, []);
 
-  // Simulated loading progress
+  // Simulated loading progress (only on first load)
   useEffect(() => {
+    // Skip loading on subsequent page navigations
+    if (sessionStorage.getItem('hasLoaded')) {
+      setLoading(false);
+      return;
+    }
+
     const interval = setInterval(() => {
       setLoadingProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => setLoading(false), 500);
+          setTimeout(() => {
+            setLoading(false);
+            sessionStorage.setItem('hasLoaded', 'true');
+          }, 500);
           return 100;
         }
         return prev + Math.random() * 15;
@@ -73,19 +128,30 @@ function App() {
           <Navbar />
           
           <main>
-            <Hero />
-            <TrustMetrics />
-            <Solutions />
-            <TechSpecs />
-            <Portfolio />
-            <Resources />
-            <LeadForm />
+            {children}
           </main>
 
           <Footer />
         </>
       )}
     </div>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/solutions/:slug" element={<SolutionDetailPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+        </Routes>
+      </AppLayout>
+    </BrowserRouter>
   );
 }
 
