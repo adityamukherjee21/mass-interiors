@@ -64,7 +64,7 @@ export const Resources = () => {
             const Icon = resource.icon;
             return (
               <motion.div 
-                key={index}
+                key={resource.pdfType}
                 className="resource-card cursor-pointer"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ export const Resources = () => {
                   delay: index * 0.1,
                   ease: [0.76, 0, 0.24, 1]
                 }}
-                data-testid={`resource-card-${index}`}
+                data-testid={`resource-card-${resource.pdfType}`}
                 onClick={() => downloadPDF(resource.pdfType)}
               >
                 <div className="resource-icon">

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { AnimatePresence } from 'framer-motion';
@@ -29,15 +29,14 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     if (hash) {
-      // If there's a hash, scroll to that element
-      setTimeout(() => {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+      const timer = setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
+      return () => clearTimeout(timer);
     } else {
-      // Otherwise scroll to top
       window.scrollTo(0, 0);
     }
   }, [pathname, hash]);
@@ -65,7 +64,8 @@ const AppLayout = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const lenisRef = useRef(null);
-  const location = useLocation();
+  const rafIdRef = useRef(null);
+  const intervalRef = useRef(null);
 
   // Initialize Lenis smooth scroll
   useEffect(() => {
@@ -81,28 +81,28 @@ const AppLayout = ({ children }) => {
 
     function raf(time) {
       lenisRef.current?.raf(time);
-      requestAnimationFrame(raf);
+      rafIdRef.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafIdRef.current = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafIdRef.current);
       lenisRef.current?.destroy();
     };
   }, []);
 
   // Simulated loading progress (only on first load)
   useEffect(() => {
-    // Skip loading on subsequent page navigations
     if (sessionStorage.getItem('hasLoaded')) {
       setLoading(false);
       return;
     }
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setLoadingProgress((prev) => {
         if (prev >= 100) {
-          clearInterval(interval);
+          clearInterval(intervalRef.current);
           setTimeout(() => {
             setLoading(false);
             sessionStorage.setItem('hasLoaded', 'true');
@@ -113,7 +113,7 @@ const AppLayout = ({ children }) => {
       });
     }, 100);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current);
   }, []);
 
   return (

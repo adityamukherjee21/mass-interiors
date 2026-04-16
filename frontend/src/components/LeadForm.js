@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Upload, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Input } from '../components/ui/input';
@@ -33,6 +33,80 @@ const productInterests = [
   { id: 'wall-panel', label: 'Wall Paneling' },
 ];
 
+const inputClass = 'form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none';
+const errorInputClass = `${inputClass} border-red`;
+
+// Field error display
+const FieldError = ({ message }) => (
+  <span className="text-xs text-red flex items-center gap-1 mt-1">
+    <AlertCircle size={12} />
+    {message}
+  </span>
+);
+
+// Success state after form submission
+const SubmissionSuccess = ({ onReset }) => (
+  <section id="contact" className="form-section section-padding" data-testid="lead-form-section">
+    <div className="container-premium">
+      <motion.div 
+        className="max-w-2xl mx-auto text-center py-20"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <CheckCircle className="w-16 h-16 text-yellow mx-auto mb-6" />
+        <h2 className="font-display text-display-md mb-4">INQUIRY RECEIVED</h2>
+        <p className="text-cloud text-lg mb-8">
+          Thank you for your interest. Our technical team will review your 
+          requirements and respond within 24 hours.
+        </p>
+        <button onClick={onReset} className="btn-secondary">
+          Submit Another Inquiry
+        </button>
+      </motion.div>
+    </div>
+  </section>
+);
+
+// Product interest checkboxes
+const ProductInterestGrid = ({ selected, onChange }) => (
+  <div className="form-group">
+    <Label className="form-label-industrial mb-3 block">Product Interest</Label>
+    <div className="grid grid-cols-2 gap-3">
+      {productInterests.map((product) => (
+        <div key={product.id} className="flex items-center gap-2">
+          <Checkbox
+            id={product.id}
+            checked={selected.includes(product.id)}
+            onCheckedChange={(checked) => onChange(product.id, checked)}
+            className="border-steel data-[state=checked]:bg-yellow data-[state=checked]:border-yellow rounded-none"
+            data-testid={`checkbox-${product.id}`}
+          />
+          <label htmlFor={product.id} className="text-sm text-cloud cursor-pointer">
+            {product.label}
+          </label>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const validateFormData = (data) => {
+  const errors = {};
+  if (!data.fullName.trim()) errors.fullName = 'Name is required';
+  if (!data.workEmail.trim()) {
+    errors.workEmail = 'Email is required';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.workEmail)) {
+    errors.workEmail = 'Please enter a valid email';
+  }
+  if (!data.phone.trim()) {
+    errors.phone = 'Phone number is required';
+  } else if (!/^[\d\s+\-()]{10,}$/.test(data.phone)) {
+    errors.phone = 'Please enter a valid phone number';
+  }
+  return errors;
+};
+
 export const LeadForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -48,99 +122,40 @@ export const LeadForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Name is required';
-    }
-    
-    if (!formData.workEmail.trim()) {
-      newErrors.workEmail = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.workEmail)) {
-      newErrors.workEmail = 'Please enter a valid email';
-    }
-    
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^[\d\s+\-()]{10,}$/.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: '' });
-    }
-  };
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => (prev[name] ? { ...prev, [name]: '' } : prev));
+  }, []);
 
-  const handleSelectChange = (value) => {
-    setFormData({ ...formData, projectType: value });
-  };
+  const handleSelectChange = useCallback((value) => {
+    setFormData((prev) => ({ ...prev, projectType: value }));
+  }, []);
 
-  const handleCheckboxChange = (id, checked) => {
-    if (checked) {
-      setFormData({
-        ...formData,
-        productInterests: [...formData.productInterests, id],
-      });
-    } else {
-      setFormData({
-        ...formData,
-        productInterests: formData.productInterests.filter((i) => i !== id),
-      });
-    }
-  };
+  const handleCheckboxChange = useCallback((id, checked) => {
+    setFormData((prev) => ({
+      ...prev,
+      productInterests: checked
+        ? [...prev.productInterests, id]
+        : prev.productInterests.filter((i) => i !== id),
+    }));
+  }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
+    const newErrors = validateFormData(formData);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
     setIsSubmitting(true);
-    
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
     console.log('Form submitted:', formData);
     setIsSubmitting(false);
     setSubmitted(true);
-  };
+  }, [formData]);
 
   if (submitted) {
-    return (
-      <section id="contact" className="form-section section-padding" data-testid="lead-form-section">
-        <div className="container-premium">
-          <motion.div 
-            className="max-w-2xl mx-auto text-center py-20"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <CheckCircle className="w-16 h-16 text-yellow mx-auto mb-6" />
-            <h2 className="font-display text-display-md mb-4">INQUIRY RECEIVED</h2>
-            <p className="text-cloud text-lg mb-8">
-              Thank you for your interest. Our technical team will review your 
-              requirements and respond within 24 hours.
-            </p>
-            <button 
-              onClick={() => setSubmitted(false)}
-              className="btn-secondary"
-            >
-              Submit Another Inquiry
-            </button>
-          </motion.div>
-        </div>
-      </section>
-    );
+    return <SubmissionSuccess onReset={() => setSubmitted(false)} />;
   }
 
   return (
@@ -200,15 +215,10 @@ export const LeadForm = () => {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     placeholder="Your name"
-                    className={`form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none ${errors.fullName ? 'border-red' : ''}`}
+                    className={errors.fullName ? errorInputClass : inputClass}
                     data-testid="input-fullname"
                   />
-                  {errors.fullName && (
-                    <span className="text-xs text-red flex items-center gap-1 mt-1">
-                      <AlertCircle size={12} />
-                      {errors.fullName}
-                    </span>
-                  )}
+                  {errors.fullName && <FieldError message={errors.fullName} />}
                 </div>
                 <div className="form-group">
                   <Label className="form-label-industrial">Work Email *</Label>
@@ -218,15 +228,10 @@ export const LeadForm = () => {
                     value={formData.workEmail}
                     onChange={handleInputChange}
                     placeholder="you@company.com"
-                    className={`form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none ${errors.workEmail ? 'border-red' : ''}`}
+                    className={errors.workEmail ? errorInputClass : inputClass}
                     data-testid="input-email"
                   />
-                  {errors.workEmail && (
-                    <span className="text-xs text-red flex items-center gap-1 mt-1">
-                      <AlertCircle size={12} />
-                      {errors.workEmail}
-                    </span>
-                  )}
+                  {errors.workEmail && <FieldError message={errors.workEmail} />}
                 </div>
               </div>
 
@@ -240,15 +245,10 @@ export const LeadForm = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="+91 XXXXX XXXXX"
-                    className={`form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none ${errors.phone ? 'border-red' : ''}`}
+                    className={errors.phone ? errorInputClass : inputClass}
                     data-testid="input-phone"
                   />
-                  {errors.phone && (
-                    <span className="text-xs text-red flex items-center gap-1 mt-1">
-                      <AlertCircle size={12} />
-                      {errors.phone}
-                    </span>
-                  )}
+                  {errors.phone && <FieldError message={errors.phone} />}
                 </div>
                 <div className="form-group">
                   <Label className="form-label-industrial">Company / Firm Name</Label>
@@ -258,7 +258,7 @@ export const LeadForm = () => {
                     value={formData.company}
                     onChange={handleInputChange}
                     placeholder="Your organization"
-                    className="form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none"
+                    className={inputClass}
                     data-testid="input-company"
                   />
                 </div>
@@ -296,35 +296,17 @@ export const LeadForm = () => {
                     value={formData.estimatedArea}
                     onChange={handleInputChange}
                     placeholder="e.g., 10,000 sq.ft"
-                    className="form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none"
+                    className={inputClass}
                     data-testid="input-area"
                   />
                 </div>
               </div>
 
               {/* Product Interests */}
-              <div className="form-group">
-                <Label className="form-label-industrial mb-3 block">Product Interest</Label>
-                <div className="grid grid-cols-2 gap-3">
-                  {productInterests.map((product) => (
-                    <div key={product.id} className="flex items-center gap-2">
-                      <Checkbox
-                        id={product.id}
-                        checked={formData.productInterests.includes(product.id)}
-                        onCheckedChange={(checked) => handleCheckboxChange(product.id, checked)}
-                        className="border-steel data-[state=checked]:bg-yellow data-[state=checked]:border-yellow rounded-none"
-                        data-testid={`checkbox-${product.id}`}
-                      />
-                      <label 
-                        htmlFor={product.id}
-                        className="text-sm text-cloud cursor-pointer"
-                      >
-                        {product.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <ProductInterestGrid 
+                selected={formData.productInterests} 
+                onChange={handleCheckboxChange} 
+              />
 
               {/* Message */}
               <div className="form-group">

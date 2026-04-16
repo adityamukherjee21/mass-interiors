@@ -5,28 +5,26 @@ const AnimatedCounter = ({ value, suffix = '', duration = 2 }) => {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const rafRef = useRef(null);
 
   useEffect(() => {
     if (!isInView) return;
 
     let startTime;
-    let animationFrame;
 
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      
-      // Easing function for smooth deceleration
       const easeOut = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(easeOut * value));
 
       if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
+        rafRef.current = requestAnimationFrame(animate);
       }
     };
 
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
   }, [isInView, value, duration]);
 
   return (
@@ -39,10 +37,10 @@ const AnimatedCounter = ({ value, suffix = '', duration = 2 }) => {
 
 export const TrustMetrics = () => {
   const metrics = [
-    { value: 500, suffix: '+', label: 'Projects Delivered' },
-    { value: 15, suffix: 'M', label: 'Sq. Ft. Installed' },
-    { value: 120, suffix: '+', label: 'Enterprise Clients' },
-    { value: 3, suffix: 'HR', label: 'Max Fire Rating' },
+    { id: 'projects', value: 500, suffix: '+', label: 'Projects Delivered' },
+    { id: 'sqft', value: 15, suffix: 'M', label: 'Sq. Ft. Installed' },
+    { id: 'clients', value: 120, suffix: '+', label: 'Enterprise Clients' },
+    { id: 'fire', value: 3, suffix: 'HR', label: 'Max Fire Rating' },
   ];
 
   return (
@@ -51,7 +49,7 @@ export const TrustMetrics = () => {
         <div className="trust-grid">
           {metrics.map((metric, index) => (
             <motion.div 
-              key={index}
+              key={metric.id}
               className="trust-item"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +59,7 @@ export const TrustMetrics = () => {
                 delay: index * 0.1,
                 ease: [0.76, 0, 0.24, 1]
               }}
-              data-testid={`trust-metric-${index}`}
+              data-testid={`trust-metric-${metric.id}`}
             >
               <div className="trust-value">
                 <AnimatedCounter 

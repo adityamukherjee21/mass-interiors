@@ -345,7 +345,7 @@ export const ProjectDetailPage = () => {
           <div className="space-y-4">
             {project.results.map((result, index) => (
               <motion.div
-                key={index}
+                key={result}
                 className="flex items-start gap-4 p-5 bg-iron border border-steel"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -377,7 +377,7 @@ export const ProjectDetailPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {project.specs.map((spec, index) => (
               <motion.div
-                key={index}
+                key={spec.label}
                 className="bg-charcoal border border-steel p-5"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -431,7 +431,7 @@ export const ProjectDetailPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.gallery.map((image, index) => (
                 <motion.div
-                  key={index}
+                  key={image}
                   className="aspect-video overflow-hidden"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}

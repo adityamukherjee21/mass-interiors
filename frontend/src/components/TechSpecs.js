@@ -93,7 +93,7 @@ export const TechSpecs = () => {
             const Icon = card.icon;
             return (
               <motion.div 
-                key={index}
+                key={card.title}
                 className={`tech-card ${card.span}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export const TechSpecs = () => {
                   delay: index * 0.08,
                   ease: [0.76, 0, 0.24, 1]
                 }}
-                data-testid={`tech-card-${index}`}
+                data-testid={`tech-card-${card.title.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 <div className="tech-card-header">
                   <span className="tech-card-title">{card.title}</span>
@@ -119,8 +119,8 @@ export const TechSpecs = () => {
                 
                 {card.specs && (
                   <div className="tech-specs-list mt-auto">
-                    {card.specs.map((spec, i) => (
-                      <div key={i} className="tech-spec-row">
+                    {card.specs.map((spec) => (
+                      <div key={`${spec.key}-${spec.value}`} className="tech-spec-row">
                         <span className="tech-spec-key">{spec.key}</span>
                         <span className="tech-spec-val">{spec.value}</span>
                       </div>

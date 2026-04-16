@@ -96,13 +96,13 @@ export const AboutPage = () => {
               const Icon = item.icon;
               return (
                 <motion.div
-                  key={index}
+                  key={item.title}
                   className="bg-charcoal border border-steel p-8 hover:border-yellow transition-colors"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  data-testid={`strength-card-${index}`}
+                  data-testid={`strength-card-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <Icon className="w-8 h-8 text-yellow mb-4" />
                   <h3 className="font-display text-xl text-white mb-3">{item.title}</h3>
@@ -125,7 +125,7 @@ export const AboutPage = () => {
               { value: '100%', label: 'CLIENT RETENTION' },
             ].map((stat, index) => (
               <motion.div
-                key={index}
+                key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -194,3 +194,4 @@ export const AboutPage = () => {
 };
 
 export default AboutPage;
+;

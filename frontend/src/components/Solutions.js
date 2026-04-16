@@ -159,8 +159,8 @@ export const Solutions = () => {
                 <h3 className="solution-title">{solution.title}</h3>
                 <p className="solution-desc">{solution.desc}</p>
                 <div className="solution-specs">
-                  {solution.specs.map((spec, i) => (
-                    <div key={i} className="solution-spec">
+                  {solution.specs.map((spec) => (
+                    <div key={`${spec.value}-${spec.label}`} className="solution-spec">
                       <span className="solution-spec-value">{spec.value}</span>
                       <span className="solution-spec-label">{spec.label}</span>
                     </div>

@@ -326,8 +326,8 @@ export const SolutionDetailPage = () => {
             >
               <span className="mono-label text-muted block mb-4">KEY APPLICATIONS</span>
               <ul className="space-y-3">
-                {solution.applications.map((app, i) => (
-                  <li key={i} className="flex items-start gap-3">
+                {solution.applications.map((app) => (
+                  <li key={app} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-yellow flex-shrink-0 mt-0.5" />
                     <span className="text-cloud">{app}</span>
                   </li>
@@ -355,7 +355,7 @@ export const SolutionDetailPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {solution.specs.map((spec, index) => (
               <motion.div
-                key={index}
+                key={spec.label}
                 className="bg-iron border border-steel p-5"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -387,7 +387,7 @@ export const SolutionDetailPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {solution.benefits.map((benefit, index) => (
               <motion.div
-                key={index}
+                key={benefit}
                 className="flex items-start gap-4 p-6 border border-steel hover:border-yellow transition-colors"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
