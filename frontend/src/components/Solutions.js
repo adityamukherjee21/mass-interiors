@@ -12,7 +12,7 @@ const solutionsData = [
       { value: '3 HR', label: 'Fire Rating' },
       { value: '90mm', label: 'Min. Thickness' },
     ],
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    image: '/assets/images/solution-fire-rated.jpg',
     size: 'large',
   },
   {
@@ -24,7 +24,7 @@ const solutionsData = [
       { value: 'STC 65', label: 'Max Rating' },
       { value: '244mm', label: 'System Width' },
     ],
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+    image: '/assets/images/solution-acoustic.jpg',
     size: 'medium',
   },
   {
@@ -36,7 +36,7 @@ const solutionsData = [
       { value: '6mm', label: 'Board Thickness' },
       { value: '600x600', label: 'Tile Size' },
     ],
-    image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80',
+    image: '/assets/images/solution-ceiling.jpg',
     size: 'medium',
   },
   {
@@ -48,7 +48,7 @@ const solutionsData = [
       { value: '30.6%', label: 'Water Absorption' },
       { value: '12mm', label: 'Recommended' },
     ],
-    image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
+    image: '/assets/images/solution-wet-area.jpg',
     size: 'small',
   },
   {
@@ -60,7 +60,7 @@ const solutionsData = [
       { value: '50', label: 'Freeze-Thaw Cycles' },
       { value: '25', label: 'Heat-Rain Cycles' },
     ],
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    image: '/assets/images/solution-cladding.jpg',
     size: 'small',
   },
   {
@@ -72,7 +72,7 @@ const solutionsData = [
       { value: '25mm', label: 'Max Thickness' },
       { value: '1250kg/m³', label: 'Density' },
     ],
-    image: 'https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=800&q=80',
+    image: '/assets/images/solution-mezzanine.jpg',
     size: 'small',
   },
   {
@@ -84,7 +84,7 @@ const solutionsData = [
       { value: '60%', label: 'Faster Build' },
       { value: '100%', label: 'Recyclable' },
     ],
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
+    image: '/assets/images/solution-prefab.jpg',
     size: 'large',
   },
   {
@@ -96,7 +96,7 @@ const solutionsData = [
       { value: '8mm', label: 'Standard' },
       { value: 'Class P', label: 'Fire Grade' },
     ],
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80',
+    image: '/assets/images/solution-wall-panel.jpg',
     size: 'medium',
   },
 ];

@@ -26,7 +26,7 @@ export const Hero = () => {
           <source src="/assets/images/hero-video.mov" type="video/mp4" />
           {/* Fallback image if video doesn't load */}
           <img 
-            src="https://images.unsplash.com/photo-1768321911432-da0c5b6cf890?w=1920&q=80" 
+            src="/assets/images/hero-fallback.jpg" 
             alt="Construction interior with steel framing"
             className="w-full h-full object-cover"
           />

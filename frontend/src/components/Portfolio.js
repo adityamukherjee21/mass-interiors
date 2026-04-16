@@ -11,7 +11,7 @@ const portfolioData = [
     area: '45,000 sq.ft',
     system: 'STC 55 Double Layer',
     outcome: 'Reduced ambient noise by 60%',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
+    image: '/assets/images/portfolio-office.jpg',
     size: 'large',
   },
   {
@@ -22,7 +22,7 @@ const portfolioData = [
     area: '28,000 sq.ft',
     system: 'VPREMIUM 12mm',
     outcome: 'Zero moisture penetration after 3 years',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+    image: '/assets/images/portfolio-hotel.jpg',
     size: 'small',
   },
   {
@@ -33,7 +33,7 @@ const portfolioData = [
     area: '32,000 sq.ft',
     system: '3-Hour Fire Rating',
     outcome: 'Full regulatory compliance achieved',
-    image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80',
+    image: '/assets/images/portfolio-hospital.jpg',
     size: 'small',
   },
   {
@@ -44,7 +44,7 @@ const portfolioData = [
     area: '8,500 sq.ft',
     system: 'Weather-Resistant 8mm',
     outcome: 'Passed 50 freeze-thaw cycles',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+    image: '/assets/images/portfolio-villa.jpg',
     size: 'large',
   },
   {
@@ -55,7 +55,7 @@ const portfolioData = [
     area: '120,000 sq.ft',
     system: 'T-Grid Concealed System',
     outcome: 'Completed 2 weeks ahead of schedule',
-    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80',
+    image: '/assets/images/portfolio-airport.jpg',
     size: 'small',
   },
   {
@@ -66,7 +66,7 @@ const portfolioData = [
     area: '15,000 sq.ft',
     system: 'Full LGSF + VBOARD',
     outcome: '60% faster construction time',
-    image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=80',
+    image: '/assets/images/portfolio-resort.jpg',
     size: 'small',
   },
 ];

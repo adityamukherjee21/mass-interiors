@@ -8,7 +8,7 @@ const solutionsData = {
     title: 'FIRE-RATED PARTITIONS',
     tag: 'FIRE PROTECTION',
     subtitle: 'Protecting lives and assets with certified fire barriers',
-    heroImage: 'https://images.unsplash.com/photo-1768321911432-da0c5b6cf890?w=1200&q=80',
+    heroImage: '/assets/images/detail-fire-rated-hero.jpg',
     description: 'VBOARD fire-rated partition systems provide critical protection for hospitals, data centers, high-rise buildings, and industrial facilities. Tested and certified to withstand fire for up to 3 hours, these systems create safe compartments that prevent fire spread and protect evacuation routes.',
     applications: [
       'Hospital corridors and OT complexes',
@@ -38,7 +38,7 @@ const solutionsData = {
     title: 'ACOUSTIC SYSTEMS',
     tag: 'SOUND CONTROL',
     subtitle: 'Precision sound isolation for critical environments',
-    heroImage: 'https://images.unsplash.com/photo-1760780567530-389d8a3fba75?w=1200&q=80',
+    heroImage: '/assets/images/detail-acoustic-hero.jpg',
     description: 'VBOARD acoustic partition systems deliver superior sound transmission class (STC) ratings for environments where noise control is critical. From recording studios to hospital wards, our engineered wall assemblies provide the acoustic isolation your project demands.',
     applications: [
       'Recording and broadcast studios',
@@ -68,7 +68,7 @@ const solutionsData = {
     title: 'FALSE CEILINGS',
     tag: 'OVERHEAD SYSTEMS',
     subtitle: 'Premium ceiling solutions for every space',
-    heroImage: 'https://images.unsplash.com/photo-1752689309754-56b8f7f185ec?w=1200&q=80',
+    heroImage: '/assets/images/detail-ceiling-hero.jpg',
     description: 'VBOARD false ceiling systems offer architects flexibility in design while delivering performance in fire safety, acoustics, and durability. Available in T-grid exposed and concealed grid configurations for seamless finishes.',
     applications: [
       'Commercial office spaces',
@@ -98,7 +98,7 @@ const solutionsData = {
     title: 'WET AREA BOARDS',
     tag: 'MOISTURE RESISTANT',
     subtitle: 'Engineered for bathrooms, kitchens, and pools',
-    heroImage: 'https://images.unsplash.com/photo-1759223607861-f0ef3e617739?w=1200&q=80',
+    heroImage: '/assets/images/detail-wet-area-hero.jpg',
     description: 'VPREMIUM wet area boards are specifically engineered for high-moisture environments. With low water absorption and excellent water vapor resistance, these boards provide reliable performance in bathrooms, kitchens, swimming pools, and external applications.',
     applications: [
       'Bathroom wall linings',
@@ -128,7 +128,7 @@ const solutionsData = {
     title: 'EXTERNAL CLADDING',
     tag: 'FACADE SYSTEMS',
     subtitle: 'Weather-resistant facades for modern architecture',
-    heroImage: 'https://images.unsplash.com/photo-1762689267018-013bf117a1a2?w=1200&q=80',
+    heroImage: '/assets/images/detail-cladding-hero.jpg',
     description: 'VPREMIUM external cladding boards provide architects with a durable, weather-resistant facade solution. Tested against freeze-thaw cycles and heat-rain exposure, these boards maintain their integrity in India\'s diverse climate conditions.',
     applications: [
       'Building facades and exteriors',
@@ -158,7 +158,7 @@ const solutionsData = {
     title: 'MEZZANINE FLOORING',
     tag: 'STRUCTURAL SYSTEMS',
     subtitle: 'High-density boards for elevated floors',
-    heroImage: 'https://images.unsplash.com/photo-1768321917806-b4b6fbbef837?w=1200&q=80',
+    heroImage: '/assets/images/detail-mezzanine-hero.jpg',
     description: 'VBOARD high-density panels provide the strength required for mezzanine flooring, raised access floors, and structural applications. With excellent screw withdrawal and load-bearing capacity, these boards are engineered for performance.',
     applications: [
       'Mezzanine floor decking',
@@ -188,7 +188,7 @@ const solutionsData = {
     title: 'PREFAB & LGSF SYSTEMS',
     tag: 'RAPID CONSTRUCTION',
     subtitle: 'Lightweight steel frame construction systems',
-    heroImage: 'https://images.unsplash.com/photo-1636923733029-25af23656552?w=1200&q=80',
+    heroImage: '/assets/images/detail-prefab-hero.jpg',
     description: 'VBOARD systems paired with Light Gauge Steel Framing (LGSF) enable rapid construction of prefabricated structures. From site offices to resort cottages, these systems deliver speed, consistency, and performance.',
     applications: [
       'Prefabricated housing',
@@ -218,7 +218,7 @@ const solutionsData = {
     title: 'WALL PANELING',
     tag: 'INTERIOR FINISH',
     subtitle: 'Premium wall lining for refined interiors',
-    heroImage: 'https://images.unsplash.com/photo-1774021796695-0b59441432e3?w=1200&q=80',
+    heroImage: '/assets/images/detail-wall-panel-hero.jpg',
     description: 'VBOARD wall paneling systems provide a smooth, paintable surface for premium interior finishes. Ideal for renovations and new construction where a high-quality wall surface is required without the mess and time of plastering.',
     applications: [
       'Office interiors',

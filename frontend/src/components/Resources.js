@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FileText, Box, Download, Layers } from 'lucide-react';
+import { downloadPDF } from '../utils/pdfGenerator';
 
 const resourcesData = [
   {
@@ -7,24 +8,28 @@ const resourcesData = [
     desc: 'AutoCAD-compatible detail drawings for all VBOARD systems and configurations.',
     format: 'DWG / DXF',
     icon: Box,
+    pdfType: 'cad',
   },
   {
     title: 'BIM OBJECTS',
     desc: 'Revit families and BIM objects for seamless integration into your design workflow.',
     format: 'RFA / RVT',
     icon: Layers,
+    pdfType: 'bim',
   },
   {
     title: 'TECHNICAL DATASHEETS',
     desc: 'Complete specifications, test reports, and compliance certificates.',
     format: 'PDF',
     icon: FileText,
+    pdfType: 'datasheet',
   },
   {
     title: 'INSTALLATION GUIDES',
     desc: 'Step-by-step installation manuals and best practice recommendations.',
     format: 'PDF / VIDEO',
     icon: Download,
+    pdfType: 'installation',
   },
 ];
 
@@ -60,7 +65,7 @@ export const Resources = () => {
             return (
               <motion.div 
                 key={index}
-                className="resource-card"
+                className="resource-card cursor-pointer"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
@@ -70,13 +75,17 @@ export const Resources = () => {
                   ease: [0.76, 0, 0.24, 1]
                 }}
                 data-testid={`resource-card-${index}`}
+                onClick={() => downloadPDF(resource.pdfType)}
               >
                 <div className="resource-icon">
                   <Icon size={24} />
                 </div>
                 <h3 className="resource-title">{resource.title}</h3>
                 <p className="resource-desc">{resource.desc}</p>
-                <span className="resource-format">{resource.format}</span>
+                <div className="flex items-center justify-between mt-auto">
+                  <span className="resource-format">{resource.format}</span>
+                  <span className="mono-label text-yellow text-xs">DOWNLOAD PDF</span>
+                </div>
               </motion.div>
             );
           })}
@@ -91,10 +100,7 @@ export const Resources = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <p className="text-cloud text-sm">
-            Access to technical resources requires registration. 
-            <a href="#contact" className="text-yellow ml-1 hover:underline">
-              Contact us for architect portal access.
-            </a>
+            Click any resource card above to download the PDF document.
           </p>
         </motion.div>
       </div>
