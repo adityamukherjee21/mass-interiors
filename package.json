@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cd frontend && yarn start",
-    "build": "cd frontend && yarn build"
+    "start": "cd massinteriors && yarn start",
+    "build": "cd massinteriors && yarn build"
   }
 }
