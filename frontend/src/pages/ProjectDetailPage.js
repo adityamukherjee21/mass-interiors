@@ -48,7 +48,7 @@ const projectsData = {
     area: '28,000 sq.ft',
     duration: '12 Weeks',
     system: 'VPREMIUM 12mm Wet Area Boards',
-    heroImage: 'https://images.unsplash.com/photo-1758193017781-e3aee6c3e359?w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1657114328522-f309ef915316?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
       'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=80',
@@ -84,7 +84,7 @@ const projectsData = {
     area: '32,000 sq.ft',
     duration: '10 Weeks',
     system: '3-Hour Fire Rated Partition System',
-    heroImage: 'https://images.unsplash.com/photo-1600247566934-6f8ad5ee691a?w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1584451049700-ec9b394f3805?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80',
       'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=80',
@@ -120,7 +120,7 @@ const projectsData = {
     area: '8,500 sq.ft',
     duration: '6 Weeks',
     system: 'VPREMIUM External Cladding System',
-    heroImage: 'https://images.unsplash.com/photo-1774953037913-af0cf688491a?w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1622015663319-e97e697503ee?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
@@ -156,7 +156,7 @@ const projectsData = {
     area: '120,000 sq.ft',
     duration: '16 Weeks',
     system: 'T-Grid and Concealed Ceiling Systems',
-    heroImage: 'https://images.unsplash.com/photo-1762801156780-dec274643407?w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1752689309754-56b8f7f185ec?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80',
       'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80',
@@ -192,7 +192,7 @@ const projectsData = {
     area: '15,000 sq.ft',
     duration: '10 Weeks',
     system: 'Full LGSF Structure with VBOARD Cladding',
-    heroImage: 'https://images.unsplash.com/photo-1766075012339-771997265720?w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1735307465233-7f06e8468de8?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=800&q=80',
       'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=80',

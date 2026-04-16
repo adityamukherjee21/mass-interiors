@@ -12,13 +12,25 @@ export const Hero = () => {
 
   return (
     <section className="hero-section" data-testid="hero-section">
-      {/* Background */}
+      {/* Video Background */}
       <div className="hero-bg">
-        <img 
-          src="https://images.unsplash.com/photo-1773168754421-206a58d35bec?w=1920&q=80" 
-          alt="Modern architectural interior with premium cement board finishes"
-          loading="eager"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/assets/images/hero-poster.jpg"
+          className="w-full h-full object-cover"
+        >
+          <source src="/assets/images/hero-video.mov" type="video/quicktime" />
+          <source src="/assets/images/hero-video.mov" type="video/mp4" />
+          {/* Fallback image if video doesn't load */}
+          <img 
+            src="https://images.unsplash.com/photo-1768321911432-da0c5b6cf890?w=1920&q=80" 
+            alt="Construction interior with steel framing"
+            className="w-full h-full object-cover"
+          />
+        </video>
         <div className="hero-overlay"></div>
       </div>
 

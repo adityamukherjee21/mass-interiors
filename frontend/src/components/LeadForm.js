@@ -156,8 +156,8 @@ export const LeadForm = () => {
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
           >
             <img 
-              src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" 
-              alt="Premium interior construction"
+              src="https://images.unsplash.com/photo-1768321915878-84ae4e46f943?w=800&q=80" 
+              alt="Interior construction with steel framing"
               className="absolute inset-0 w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-void via-void/60 to-transparent"></div>

@@ -12,7 +12,7 @@ const solutionsData = [
       { value: '3 HR', label: 'Fire Rating' },
       { value: '90mm', label: 'Min. Thickness' },
     ],
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
     size: 'large',
   },
   {
@@ -24,7 +24,7 @@ const solutionsData = [
       { value: 'STC 65', label: 'Max Rating' },
       { value: '244mm', label: 'System Width' },
     ],
-    image: 'https://images.unsplash.com/photo-1764083292858-1576bce9e678?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
     size: 'medium',
   },
   {
@@ -36,7 +36,7 @@ const solutionsData = [
       { value: '6mm', label: 'Board Thickness' },
       { value: '600x600', label: 'Tile Size' },
     ],
-    image: 'https://images.unsplash.com/photo-1762801156780-dec274643407?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80',
     size: 'medium',
   },
   {
@@ -45,10 +45,10 @@ const solutionsData = [
     tag: 'MOISTURE RESISTANT',
     desc: 'Water-resistant cement boards for bathrooms, kitchens, and swimming pool areas.',
     specs: [
-      { value: '36%', label: 'Water Absorption' },
+      { value: '30.6%', label: 'Water Absorption' },
       { value: '12mm', label: 'Recommended' },
     ],
-    image: 'https://images.unsplash.com/photo-1765902513371-dc3cf6b2df1d?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
     size: 'small',
   },
   {
@@ -60,7 +60,7 @@ const solutionsData = [
       { value: '50', label: 'Freeze-Thaw Cycles' },
       { value: '25', label: 'Heat-Rain Cycles' },
     ],
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
     size: 'small',
   },
   {
@@ -70,9 +70,9 @@ const solutionsData = [
     desc: 'High-density cement boards for raised floors and mezzanine construction.',
     specs: [
       { value: '25mm', label: 'Max Thickness' },
-      { value: '1200kg/m³', label: 'Density' },
+      { value: '1250kg/m³', label: 'Density' },
     ],
-    image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=800&q=80',
     size: 'small',
   },
   {
@@ -84,7 +84,7 @@ const solutionsData = [
       { value: '60%', label: 'Faster Build' },
       { value: '100%', label: 'Recyclable' },
     ],
-    image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
     size: 'large',
   },
   {
@@ -96,7 +96,7 @@ const solutionsData = [
       { value: '8mm', label: 'Standard' },
       { value: 'Class P', label: 'Fire Grade' },
     ],
-    image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80',
     size: 'medium',
   },
 ];
@@ -144,7 +144,14 @@ export const Solutions = () => {
             >
               <Link to={`/solutions/${solution.id}`} className="absolute inset-0 z-10" />
               <div className="solution-image">
-                <img src={solution.image} alt={solution.title} loading="lazy" />
+                <img 
+                  src={solution.image} 
+                  alt={solution.title} 
+                  loading="eager"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/800x600/1C1C1C/F5C800?text=' + encodeURIComponent(solution.title);
+                  }}
+                />
               </div>
               <div className="solution-overlay"></div>
               <div className="solution-content">
