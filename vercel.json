@@ -1,6 +1,6 @@
 {
-  "buildCommand": "yarn build",
-  "outputDirectory": "build",
-  "installCommand": "yarn install",
+  "buildCommand": "cd massinteriors && yarn build",
+  "outputDirectory": "massinteriors/build",
+  "installCommand": "cd massinteriors && yarn install",
   "framework": "create-react-app"
 }

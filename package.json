@@ -1,9 +1,0 @@
-{
-  "name": "mass-interiors",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "start": "cd massinteriors && yarn start",
-    "build": "cd massinteriors && yarn build"
-  }
-}
