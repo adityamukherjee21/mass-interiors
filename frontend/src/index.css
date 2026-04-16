@@ -478,6 +478,7 @@ h1, h2, h3, h4 {
 .text-mid { color: var(--mid); }
 .text-cloud { color: var(--cloud); }
 .text-off-white { color: var(--off-white); }
+.text-red { color: var(--red); }
 
 .bg-void { background-color: var(--void); }
 .bg-charcoal { background-color: var(--charcoal); }
@@ -487,6 +488,56 @@ h1, h2, h3, h4 {
 .border-steel { border-color: var(--steel); }
 .border-iron { border-color: var(--iron); }
 .border-yellow { border-color: var(--yellow); }
+.border-red { border-color: var(--red) !important; }
+
+/* Button disabled state */
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary:disabled:hover {
+  background: var(--white);
+  transform: none;
+}
+
+/* Active states for touch devices */
+@media (hover: none) {
+  .btn-primary:active {
+    background: var(--yellow);
+    transform: scale(0.98);
+  }
+  
+  .btn-secondary:active {
+    border-color: var(--yellow);
+    color: var(--yellow);
+  }
+  
+  .solution-card:active {
+    border-color: var(--yellow);
+  }
+  
+  .portfolio-card:active .portfolio-image img {
+    transform: scale(1.05);
+  }
+}
+
+/* Improved mobile touch targets */
+@media (max-width: 768px) {
+  .btn-primary,
+  .btn-secondary {
+    padding: 18px 28px;
+    min-height: 52px;
+  }
+  
+  .nav-link {
+    padding: 8px 4px;
+  }
+  
+  .footer-link {
+    padding: 6px 0;
+  }
+}
 
 /* ===== SELECTION ===== */
 ::selection {

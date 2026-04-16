@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
   useEffect(() => {
@@ -17,6 +18,23 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
   const navLinks = [
     { label: 'About', href: '/about', isPage: true },
     { label: 'Solutions', href: isHomePage ? '#solutions' : '/#solutions', isPage: false },
@@ -24,6 +42,33 @@ export const Navbar = () => {
     { label: 'Portfolio', href: isHomePage ? '#portfolio' : '/#portfolio', isPage: false },
     { label: 'Contact', href: isHomePage ? '#contact' : '/#contact', isPage: false },
   ];
+
+  // Handle smooth scroll for hash links
+  const handleHashClick = (e, href) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      setMobileOpen(false);
+    } else if (href.startsWith('/#')) {
+      e.preventDefault();
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector(href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      setMobileOpen(false);
+    }
+  };
+
+  const handleCtaClick = (e) => {
+    const href = isHomePage ? '#contact' : '/#contact';
+    handleHashClick(e, href);
+  };
 
   return (
     <>
@@ -64,26 +109,28 @@ export const Navbar = () => {
                     key={link.label}
                     href={link.href}
                     className="nav-link"
+                    onClick={(e) => handleHashClick(e, link.href)}
                     data-testid={`nav-link-${link.label.toLowerCase()}`}
                   >
                     {link.label}
                   </a>
                 )
               ))}
-              <Link 
-                to={isHomePage ? '#contact' : '/#contact'}
+              <button 
+                onClick={handleCtaClick}
                 className="btn-primary ml-4"
                 data-testid="nav-cta"
               >
                 Get Quote
                 <ArrowUpRight size={14} />
-              </Link>
+              </button>
             </div>
 
             {/* Mobile Toggle */}
             <button 
               className="lg:hidden p-2 text-white"
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               data-testid="nav-mobile-toggle"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -104,7 +151,16 @@ export const Navbar = () => {
         style={{ pointerEvents: mobileOpen ? 'auto' : 'none' }}
         data-testid="nav-mobile-menu"
       >
-        <div className="container-premium pt-24 pb-8 flex flex-col h-full">
+        {/* Close button in mobile menu */}
+        <button 
+          className="absolute top-6 right-6 p-2 text-white z-10"
+          onClick={() => setMobileOpen(false)}
+          aria-label="Close menu"
+        >
+          <X size={24} />
+        </button>
+
+        <div className="container-premium pt-24 pb-8 flex flex-col h-full overflow-y-auto">
           <div className="flex flex-col gap-6">
             {navLinks.map((link, i) => (
               link.isPage ? (
@@ -135,7 +191,7 @@ export const Navbar = () => {
                   key={link.label}
                   href={link.href}
                   className="font-display text-4xl text-white"
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => handleHashClick(e, link.href)}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ 
                     opacity: mobileOpen ? 1 : 0,
@@ -152,9 +208,28 @@ export const Navbar = () => {
               )
             ))}
           </div>
+          
+          {/* Mobile CTA */}
+          <motion.div 
+            className="mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: mobileOpen ? 1 : 0 }}
+            transition={{ duration: 0.4, delay: 0.5 }}
+          >
+            <button 
+              onClick={handleCtaClick}
+              className="btn-primary w-full justify-center"
+            >
+              Get Quote
+              <ArrowUpRight size={14} />
+            </button>
+          </motion.div>
+
           <div className="mt-auto pt-8 border-t border-steel">
             <div className="mono-label mb-4">Contact</div>
-            <p className="text-cloud text-sm">massinteriors.ind@gmail.com</p>
+            <a href="mailto:massinteriors.ind@gmail.com" className="text-cloud text-sm block hover:text-yellow transition-colors">
+              massinteriors.ind@gmail.com
+            </a>
             <p className="text-cloud text-sm mt-1">Raipur, Chhattisgarh</p>
           </div>
         </div>

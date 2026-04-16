@@ -1,13 +1,31 @@
 /* ===== MASS INTERIORS - COMPONENT STYLES ===== */
 
+/* GPU Acceleration for smooth animations */
+.hero-section,
+.solution-card,
+.portfolio-card,
+.tech-card,
+.resource-card {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 /* Hero Section */
 .hero-section {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   display: flex;
   align-items: flex-end;
   padding-bottom: var(--s8);
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding-bottom: var(--s6);
+  }
 }
 
 .hero-bg {
@@ -850,4 +868,155 @@
   color: var(--cloud);
   max-width: 600px;
   line-height: 1.7;
+}
+
+/* ===== PERFORMANCE & POLISH ===== */
+
+/* Lazy loading image placeholder */
+.solution-image img,
+.portfolio-image img,
+.form-visual img {
+  background: linear-gradient(135deg, var(--iron) 0%, var(--charcoal) 100%);
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .hero-3d-zone,
+  .scroll-progress {
+    display: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  .scroll-progress,
+  .hero-3d-zone,
+  .footer,
+  .btn-primary,
+  .btn-secondary {
+    display: none;
+  }
+  
+  .hero-section {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --steel: #444444;
+    --muted: #999999;
+    --cloud: #dddddd;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    border-width: 2px;
+  }
+}
+
+/* Fix for iOS Safari 100vh */
+@supports (-webkit-touch-callout: none) {
+  .hero-section {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img[loading="lazy"].loaded,
+img:not([loading="lazy"]) {
+  opacity: 1;
+}
+
+/* Card hover lift effect */
+.solution-card:hover,
+.portfolio-card:hover,
+.resource-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Form input autofill styling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--white);
+  -webkit-box-shadow: 0 0 0px 1000px var(--charcoal) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Smooth section transitions */
+section {
+  position: relative;
+}
+
+section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--steel), transparent);
+  opacity: 0.5;
+}
+
+.trust-metrics::after,
+.tech-section::after,
+.resources-section::after,
+.footer::after {
+  display: none;
+}
+
+/* Mobile overflow prevention */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Container edge padding safety */
+@media (max-width: 480px) {
+  .container-premium {
+    padding: 0 var(--s2);
+  }
+  
+  .hero-title {
+    font-size: clamp(42px, 12vw, 80px);
+  }
+  
+  .section-title {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+  
+  .form-container {
+    padding: var(--s4);
+  }
+  
+  .solution-content,
+  .portfolio-content {
+    padding: var(--s3);
+  }
 }

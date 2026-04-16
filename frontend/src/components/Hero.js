@@ -2,25 +2,34 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Play } from 'lucide-react';
 
 export const Hero = () => {
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.querySelector(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="hero-section" data-testid="hero-section">
       {/* Background */}
       <div className="hero-bg">
         <img 
           src="https://images.unsplash.com/photo-1773168754421-206a58d35bec?w=1920&q=80" 
-          alt="Architectural interior with dramatic lighting"
+          alt="Modern architectural interior with premium cement board finishes"
           loading="eager"
         />
         <div className="hero-overlay"></div>
       </div>
 
       {/* 3D Visualization Zone Placeholder */}
-      <div className="hero-3d-zone">
+      <div className="hero-3d-zone" aria-hidden="true">
         <div className="text-center">
-          <div className="mono-label text-muted mb-2">3D ZONE</div>
+          <div className="mono-label text-muted mb-2">3D PRODUCT ZONE</div>
           <div className="font-mono text-xs text-mid">
-            Interactive Product<br/>Visualization
+            Interactive<br/>Visualization
           </div>
+          {/* IMAGE PLACEHOLDER: 3D rotating cement board product visualization */}
         </div>
       </div>
 
@@ -61,8 +70,8 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.5, ease: [0.76, 0, 0.24, 1] }}
           >
             India's premium dry construction partner. Fire-rated partitions, 
-            acoustic systems, and architectural cladding — engineered for 
-            hospitals, hotels, airports, and beyond.
+            acoustic wall systems, and architectural cladding — precision-engineered 
+            for hospitals, hotels, airports, and critical infrastructure.
           </motion.p>
 
           {/* CTAs */}
@@ -72,11 +81,21 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7, ease: [0.76, 0, 0.24, 1] }}
           >
-            <a href="#contact" className="btn-primary" data-testid="hero-cta-primary">
+            <a 
+              href="#contact" 
+              className="btn-primary" 
+              onClick={(e) => handleSmoothScroll(e, '#contact')}
+              data-testid="hero-cta-primary"
+            >
               Request BOQ
               <ArrowUpRight size={14} />
             </a>
-            <a href="#solutions" className="btn-secondary" data-testid="hero-cta-secondary">
+            <a 
+              href="#solutions" 
+              className="btn-secondary"
+              onClick={(e) => handleSmoothScroll(e, '#solutions')}
+              data-testid="hero-cta-secondary"
+            >
               <Play size={14} />
               Explore Systems
             </a>

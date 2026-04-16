@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Upload, CheckCircle } from 'lucide-react';
+import { ArrowUpRight, Upload, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
@@ -44,10 +44,40 @@ export const LeadForm = () => {
     productInterests: [],
     message: '',
   });
+  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Name is required';
+    }
+    
+    if (!formData.workEmail.trim()) {
+      newErrors.workEmail = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.workEmail)) {
+      newErrors.workEmail = 'Please enter a valid email';
+    }
+    
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^[\d\s+\-()]{10,}$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
   };
 
   const handleSelectChange = (value) => {
@@ -68,10 +98,20 @@ export const LeadForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In production, this would send to backend
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     console.log('Form submitted:', formData);
+    setIsSubmitting(false);
     setSubmitted(true);
   };
 
@@ -160,10 +200,15 @@ export const LeadForm = () => {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     placeholder="Your name"
-                    required
-                    className="form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none"
+                    className={`form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none ${errors.fullName ? 'border-red' : ''}`}
                     data-testid="input-fullname"
                   />
+                  {errors.fullName && (
+                    <span className="text-xs text-red flex items-center gap-1 mt-1">
+                      <AlertCircle size={12} />
+                      {errors.fullName}
+                    </span>
+                  )}
                 </div>
                 <div className="form-group">
                   <Label className="form-label-industrial">Work Email *</Label>
@@ -173,10 +218,15 @@ export const LeadForm = () => {
                     value={formData.workEmail}
                     onChange={handleInputChange}
                     placeholder="you@company.com"
-                    required
-                    className="form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none"
+                    className={`form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none ${errors.workEmail ? 'border-red' : ''}`}
                     data-testid="input-email"
                   />
+                  {errors.workEmail && (
+                    <span className="text-xs text-red flex items-center gap-1 mt-1">
+                      <AlertCircle size={12} />
+                      {errors.workEmail}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -190,10 +240,15 @@ export const LeadForm = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="+91 XXXXX XXXXX"
-                    required
-                    className="form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none"
+                    className={`form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none ${errors.phone ? 'border-red' : ''}`}
                     data-testid="input-phone"
                   />
+                  {errors.phone && (
+                    <span className="text-xs text-red flex items-center gap-1 mt-1">
+                      <AlertCircle size={12} />
+                      {errors.phone}
+                    </span>
+                  )}
                 </div>
                 <div className="form-group">
                   <Label className="form-label-industrial">Company / Firm Name</Label>
@@ -303,14 +358,24 @@ export const LeadForm = () => {
                 <button 
                   type="submit" 
                   className="btn-primary w-full justify-center"
+                  disabled={isSubmitting}
                   data-testid="form-submit-btn"
                 >
-                  Submit Inquiry
-                  <ArrowUpRight size={14} />
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      Submit Inquiry
+                      <ArrowUpRight size={14} />
+                    </>
+                  )}
                 </button>
                 <p className="text-xs text-mid mt-4 text-center">
                   By submitting, you agree to our privacy policy. 
-                  We'll respond within 24 hours.
+                  We'll respond within 24 business hours.
                 </p>
               </div>
             </form>
