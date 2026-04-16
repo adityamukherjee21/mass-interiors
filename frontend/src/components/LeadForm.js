@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
+import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Upload, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Input } from '../components/ui/input';
@@ -121,6 +122,8 @@ export const LeadForm = () => {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const fileInputRef = React.useRef(null);
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -148,10 +151,24 @@ export const LeadForm = () => {
     if (Object.keys(newErrors).length > 0) return;
 
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('Form submitted:', formData);
-    setIsSubmitting(false);
-    setSubmitted(true);
+    try {
+      const { error } = await supabase.from('enquiries').insert({
+        full_name: formData.fullName,
+        work_email: formData.workEmail,
+        phone: formData.phone,
+        company: formData.company || null,
+        project_type: formData.projectType || null,
+        estimated_area: formData.estimatedArea || null,
+        product_interests: formData.productInterests,
+        message: formData.message || null,
+      });
+      if (error) throw new Error(error.message);
+      setSubmitted(true);
+    } catch (err) {
+      setErrors({ submit: err.message || 'Something went wrong. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   }, [formData]);
 
   if (submitted) {
@@ -268,7 +285,7 @@ export const LeadForm = () => {
               <div className="form-row">
                 <div className="form-group">
                   <Label className="form-label-industrial">Project Type</Label>
-                  <Select onValueChange={handleSelectChange}>
+                  <Select value={formData.projectType} onValueChange={handleSelectChange}>
                     <SelectTrigger 
                       className="form-input-industrial bg-transparent border-steel focus:border-yellow rounded-none text-white"
                       data-testid="select-project-type"
@@ -322,21 +339,65 @@ export const LeadForm = () => {
                 />
               </div>
 
-              {/* Upload Placeholder */}
+              {/* Upload */}
               <div className="form-group">
                 <Label className="form-label-industrial">Upload BOQ / Drawing (Optional)</Label>
-                <div 
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.dwg,.xls,.xlsx"
+                  className="hidden"
+                  data-testid="upload-input"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    if (file && file.size > 10 * 1024 * 1024) {
+                      setErrors((prev) => ({ ...prev, upload: 'File must be under 10MB' }));
+                      e.target.value = '';
+                      setUploadedFile(null);
+                    } else {
+                      setErrors((prev) => { const n = { ...prev }; delete n.upload; return n; });
+                      setUploadedFile(file);
+                    }
+                  }}
+                />
+                <div
                   className="border border-dashed border-steel p-6 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-yellow transition-colors"
                   data-testid="upload-placeholder"
+                  onClick={() => fileInputRef.current?.click()}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const file = e.dataTransfer.files?.[0];
+                    if (!file) return;
+                    if (file.size > 10 * 1024 * 1024) {
+                      setErrors((prev) => ({ ...prev, upload: 'File must be under 10MB' }));
+                    } else {
+                      setErrors((prev) => { const n = { ...prev }; delete n.upload; return n; });
+                      setUploadedFile(file);
+                    }
+                  }}
                 >
                   <Upload className="w-6 h-6 text-mid" />
-                  <span className="text-sm text-mid">Click to upload or drag and drop</span>
-                  <span className="mono-label text-mid">PDF, DWG, XLS up to 10MB</span>
+                  {uploadedFile ? (
+                    <span className="text-sm text-yellow">{uploadedFile.name}</span>
+                  ) : (
+                    <>
+                      <span className="text-sm text-mid">Click to upload or drag and drop</span>
+                      <span className="mono-label text-mid">PDF, DWG, XLS up to 10MB</span>
+                    </>
+                  )}
                 </div>
+                {errors.upload && <FieldError message={errors.upload} />}
               </div>
 
               {/* Submit */}
               <div className="form-footer">
+                {errors.submit && (
+                  <div className="flex items-center gap-2 text-sm text-red mb-3">
+                    <AlertCircle size={14} />
+                    {errors.submit}
+                  </div>
+                )}
                 <button 
                   type="submit" 
                   className="btn-primary w-full justify-center"

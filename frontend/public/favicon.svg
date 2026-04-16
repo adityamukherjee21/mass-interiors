@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" shape-rendering="crispEdges">
+
+  <!-- Background: near-black -->
+  <rect width="64" height="64" fill="#080808"/>
+
+  <!-- Outer border: 1px gold frame -->
+  <rect x="2" y="2" width="60" height="60" stroke="#F5C800" stroke-width="1.5" fill="none"/>
+
+
+<!-- "M" lettermark — bold geometric, no curves, sharp industrial -->
+  <!-- Left vertical stroke -->
+  <rect x="11" y="14" width="7" height="36" fill="#FFFFFF"/>
+
+  <!-- Right vertical stroke -->
+  <rect x="46" y="14" width="7" height="36" fill="#FFFFFF"/>
+
+  <!-- Left diagonal (top-left to center) -->
+  <polygon points="11,14 18,14 32,34 25,34" fill="#FFFFFF"/>
+
+  <!-- Right diagonal (top-right to center) -->
+  <polygon points="53,14 46,14 32,34 39,34" fill="#FFFFFF"/>
+
+  <!-- Gold baseline rule -->
+  <rect x="11" y="48" width="42" height="2" fill="#F5C800"/>
+
+</svg>
