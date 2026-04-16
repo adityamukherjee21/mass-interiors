@@ -34,17 +34,6 @@ export const Hero = () => {
         <div className="hero-overlay"></div>
       </div>
 
-      {/* 3D Visualization Zone Placeholder */}
-      <div className="hero-3d-zone" aria-hidden="true">
-        <div className="text-center">
-          <div className="mono-label text-muted mb-2">3D PRODUCT ZONE</div>
-          <div className="font-mono text-xs text-mid">
-            Interactive<br/>Visualization
-          </div>
-          {/* IMAGE PLACEHOLDER: 3D rotating cement board product visualization */}
-        </div>
-      </div>
-
       {/* Content */}
       <div className="container-premium">
         <div className="hero-content">
